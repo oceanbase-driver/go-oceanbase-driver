@@ -4,16 +4,18 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at http://mozilla.org/MPL/2.0/.
 
-// Package mysql provides a MySQL driver for Go's database/sql package.
+// Package mysql provides an OceanBase (MySQL protocol) driver for Go's
+// database/sql package. Forked from go-sql-driver/mysql v1.10.1 with
+// Oracle-tenant login enabled (capability bit27).
 //
 // The driver should be used via the database/sql package:
 //
 //	import "database/sql"
-//	import _ "github.com/go-sql-driver/mysql"
+//	import _ "github.com/oceanbase-driver/go-oceanbase-driver"
 //
 //	db, err := sql.Open("mysql", "user:password@/dbname")
 //
-// See https://github.com/go-sql-driver/mysql#usage for details
+// See https://github.com/oceanbase-driver/go-oceanbase-driver#usage for details
 package mysql
 
 import (
@@ -76,7 +78,7 @@ func RegisterDial(network string, dial DialFunc) {
 }
 
 // Open new Connection.
-// See https://github.com/go-sql-driver/mysql#dsn-data-source-name for how
+// See https://github.com/oceanbase-driver/go-oceanbase-driver#dsn-data-source-name for how
 // the DSN string is formatted
 func (d MySQLDriver) Open(dsn string) (driver.Conn, error) {
 	cfg, err := ParseDSN(dsn)
@@ -88,7 +90,7 @@ func (d MySQLDriver) Open(dsn string) (driver.Conn, error) {
 }
 
 // This variable can be replaced with -ldflags like below:
-// go build "-ldflags=-X github.com/go-sql-driver/mysql.driverName=custom"
+// go build "-ldflags=-X github.com/oceanbase-driver/go-oceanbase-driver.driverName=custom"
 var driverName = "mysql"
 
 func init() {

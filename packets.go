@@ -289,7 +289,8 @@ func (mc *mysqlConn) initCapabilities(serverCapabilities capabilityFlag, serverE
 			clientPluginAuth |
 			clientMultiResults |
 			clientConnectAttrs |
-			clientDeprecateEOF
+			clientDeprecateEOF |
+			clientQueryAttributes
 
 	if cfg.ClientFoundRows {
 		clientCapabilities |= clientFoundRows
@@ -311,6 +312,10 @@ func (mc *mysqlConn) initCapabilities(serverCapabilities capabilityFlag, serverE
 
 	// only keep client capabilities that server have
 	mc.capabilities = clientCapabilities & serverCapabilities
+	// OceanBase 服务器握手包不宣告 bit27，但登录校验要求客户端置上该位
+	// （效果等同 MySQL 8.0 客户端），因此在这里保留，不随服务端掩码抹掉。
+	// 对原生 MySQL/MariaDB 无副作用：驱动从不发送查询属性包。
+	mc.capabilities |= clientCapabilities & clientQueryAttributes
 
 	// set MariaDB extended clientCacheMetadata capability if server support it
 	mc.extCapabilities = clientCacheMetadata & serverExtCapabilities

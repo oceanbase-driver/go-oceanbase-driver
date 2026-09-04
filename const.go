@@ -72,6 +72,13 @@ const (
 	clientCanHandleExpiredPasswords
 	clientSessionTrack
 	clientDeprecateEOF
+	// MySQL 8.0 起为 CLIENT_QUERY_ATTRIBUTES，OceanBase 复用该位表示
+	// 客户端支持 Oracle 租户（OB_CLIENT_SUPPORT_ORACLE_MODE）。
+	// 置上此位才能登录 Oracle 租户，否则服务端报
+	// Error 1235: Oracle tenant for current client driver is not supported。
+	clientOptionalResultsetMetadata
+	clientZstdCompressionAlgorithm
+	clientQueryAttributes
 )
 
 // https://mariadb.com/kb/en/connection/#capabilities
