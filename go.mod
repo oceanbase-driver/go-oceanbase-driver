@@ -1,4 +1,4 @@
-module github.com/go-sql-driver/mysql
+module github.com/oceanbase-driver/go-oceanbase-driver
 
 go 1.24.0
 
