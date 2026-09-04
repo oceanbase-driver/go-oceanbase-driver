@@ -18,8 +18,8 @@ Go 驱动默认没置。本驱动默认置上，对 MySQL / MariaDB / OB MySQL �
 go get github.com/oceanbase-driver/go-oceanbase-driver@v1.0.4
 ```
 
-注意：不要在同一个程序里同时引用上游 `go-sql-driver/mysql` 和本驱动，
-两者注册的驱动名都是 `mysql`，会 panic。
+注意：本驱动注册的驱动名是 `oceanbase`，可与上游 `go-sql-driver/mysql`
+（驱动名 `mysql`）共存于同一程序，按需选用。
 
 ## 用法
 
@@ -30,7 +30,7 @@ import (
 	_ "github.com/oceanbase-driver/go-oceanbase-driver"
 )
 
-db, err := sql.Open("mysql", "user@tenant#cluster:password@tcp(host:9090)/dbname?timeout=10s")
+db, err := sql.Open("oceanbase", "user@tenant#cluster:password@tcp(host:9090)/dbname?timeout=10s")
 // 之后就是标准 database/sql 用法
 ```
 

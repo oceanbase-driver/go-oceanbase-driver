@@ -13,7 +13,7 @@
 //	import "database/sql"
 //	import _ "github.com/oceanbase-driver/go-oceanbase-driver"
 //
-//	db, err := sql.Open("mysql", "user:password@/dbname")
+//	db, err := sql.Open("oceanbase", "user:password@/dbname")
 //
 // See https://github.com/oceanbase-driver/go-oceanbase-driver#usage for details
 package mysql
@@ -89,9 +89,11 @@ func (d MySQLDriver) Open(dsn string) (driver.Conn, error) {
 	return c.Connect(context.Background())
 }
 
-// This variable can be replaced with -ldflags like below:
+// Driver name registered with database/sql is "oceanbase" (not "mysql"),
+// so this fork coexists with upstream go-sql-driver in one program.
+// Override at build time if needed:
 // go build "-ldflags=-X github.com/oceanbase-driver/go-oceanbase-driver.driverName=custom"
-var driverName = "mysql"
+var driverName = "oceanbase"
 
 func init() {
 	if driverName != "" {
